@@ -66,7 +66,61 @@ public class MainActivity extends AppCompatActivity {
                 respuestaEdit.setText(Float.toString(res));
                 break;
 
+            case "%":
+                if(n.getNum2() == 0){
+                    Toast.makeText(this, "No se puede sacar modulo de cero", Toast.LENGTH_LONG).show();
+                }else{
+                    res = n.getNum1() % n.getNum2();
+                    respuestaEdit.setText(Float.toString(res));
+                }
+                break;
+
+            case "pot":
+                if(n.getNum2() <= 0){
+                    Toast.makeText(this, "No se permiten potencias negativas", Toast.LENGTH_LONG).show();
+                }else{
+                    try{
+                        double resp = Math.pow(n.getNum1(), n.getNum2());
+                        respuestaEdit.setText(Double.toString(resp));
+                    }catch(Exception e ){
+                        Toast.makeText(this, "Ocurrio un error" + e.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                }
+                break;
+
         }
+    }
+
+    public void borrar(View view){
+        String ops = respuestaEdit.getText().toString();
+        ops = ops.substring(0, ops.length()-1);
+        respuestaEdit.setText(ops);
+    }
+
+    public void potencia(View view){
+        n.setNum1(Float.parseFloat(respuestaEdit.getText().toString()));
+        operacion = "pot";
+        respuestaEdit.setText("0");
+    }
+
+    public void raiz(View view){
+        if(Float.parseFloat(respuestaEdit.getText().toString()) <= 0){
+            Toast.makeText(this, "Solo se puede sacar raiz cuadrarda a numero mayores a 0", Toast.LENGTH_LONG).show();
+        }else{
+            try{
+                double res = Math.sqrt(Float.parseFloat(respuestaEdit.getText().toString()));
+                respuestaEdit.setText(Double.toString(res));
+            }catch (Exception e){
+                Toast.makeText(this, "Ocurrio un error..." + e.getMessage(), Toast.LENGTH_LONG).show();
+                respuestaEdit.setText("0");
+            }
+        }
+    }
+
+    public void modulo(View view){
+        n.setNum1(Float.parseFloat(respuestaEdit.getText().toString()));
+        operacion = "%";
+        respuestaEdit.setText("0");
     }
 
     public void multiplicar(View view){
