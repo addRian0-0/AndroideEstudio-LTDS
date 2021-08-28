@@ -7,37 +7,147 @@ import android.text.Editable;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
+    Numeros n = new Numeros();
+
+    //Respuesta
+    private TextView respuestaEdit;
+    private float num1 = 0;
+    private float num2 = 0;
+    String operacion = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //Respuesta
-        EditText respuestaEdit = findViewById(R.id.respuesta);
-        Button btnIgual = findViewById(R.id.igual);
+        respuestaEdit = findViewById(R.id.respuesta);
 
-        //Numeros
-        Button btn1 = findViewById(R.id.uno);
-        Button btn2 = findViewById(R.id.dos);
-        Button btn3 = findViewById(R.id.tres);
-        Button btn4 = findViewById(R.id.cuatro);
-        Button btn5 = findViewById(R.id.cinco);
-        Button btn6 = findViewById(R.id.seis);
-        Button btn7 = findViewById(R.id.siete);
-        Button btn8 = findViewById(R.id.ocho);
-        Button btn9 = findViewById(R.id.nueve);
-        Button btn0 = findViewById(R.id.cero);
+    }
 
-        //Operaciones
-        Button btnSuma = findViewById(R.id.suma);
+    public void dividir(View view){
+        n.setNum1(Float.parseFloat(respuestaEdit.getText().toString()));
+        operacion = "/";
+        respuestaEdit.setText("0");
+    }
 
+    public void igual(View view){
+        float res;
+        n.setNum2(Float.parseFloat(respuestaEdit.getText().toString()));
+        switch (operacion){
 
+            case "+":
+                res = n.getNum1() + n.getNum2();
+                respuestaEdit.setText(Float.toString(res));
+                break;
+
+            case "/":
+                if(n.getNum2() == 0 || n.getNum1() == 0){
+                    Toast.makeText(this, "No se puede dividir entre 0", Toast.LENGTH_LONG).show();
+                }else{
+                    res = n.getNum1() / n.getNum2();
+                    respuestaEdit.setText(Float.toString(res));
+                }
+                break;
+
+            case "-":
+                res = n.getNum1() - n.getNum2();
+                respuestaEdit.setText(Float.toString(res));
+                break;
+
+            case "*":
+                res = n.getNum1() * n.getNum2();
+                respuestaEdit.setText(Float.toString(res));
+                break;
+
+        }
+    }
+
+    public void multiplicar(View view){
+        n.setNum1(Float.parseFloat(respuestaEdit.getText().toString()));
+        operacion = "*";
+        respuestaEdit.setText("0");
+    }
+
+    public void suma(View view){
+        n.setNum1(Float.parseFloat(respuestaEdit.getText().toString()));
+        operacion = "+";
+        respuestaEdit.setText("0");
+    }
+
+    public void resta(View view){
+        n.setNum1(Float.parseFloat(respuestaEdit.getText().toString()));
+        operacion = "-";
+        respuestaEdit.setText("0");
+    }
+
+    public void puntito(View view){
+        respuestaEdit.setText(respuestaEdit.getText() + ".");
+    }
+
+    public void clear(View view){
+        respuestaEdit.setText("0");
+        num1 = 0.0f;
+        num2 = 0.0f;
+        n.setNum1(0.0f);
+        n.setNum2(0.0f);
+        operacion = "";
+    }
+
+    public void siete(View view){
+        if(respuestaEdit.getText().length() > 0){num1 = Float.parseFloat(respuestaEdit.getText().toString());}
+        if(num1 == 0.0f ){respuestaEdit.setText("7");}else{respuestaEdit.setText(respuestaEdit.getText() + "7");}
+    }
+
+    public void ocho(View view) {
+        if(respuestaEdit.getText().length() > 0){num1 = Float.parseFloat(respuestaEdit.getText().toString());}
+        if(num1 == 0.0f ){respuestaEdit.setText("8");}else{respuestaEdit.setText(respuestaEdit.getText() + "8");}
+    }
+
+    public void nueve(View view) {
+        if(respuestaEdit.getText().length() > 0){num1 = Float.parseFloat(respuestaEdit.getText().toString());}
+        if(num1 == 0.0f ){respuestaEdit.setText("9");}else{respuestaEdit.setText(respuestaEdit.getText() + "9");}
+    }
+
+    public void cuatro(View view) {
+        if(respuestaEdit.getText().length() > 0){num1 = Float.parseFloat(respuestaEdit.getText().toString());}
+        if(num1 == 0.0f ){respuestaEdit.setText("4");}else{respuestaEdit.setText(respuestaEdit.getText() + "4");}
+    }
+
+    public void cinco(View view) {
+        if(respuestaEdit.getText().length() > 0){num1 = Float.parseFloat(respuestaEdit.getText().toString());}
+        if(num1 == 0.0f ){respuestaEdit.setText("5");}else{respuestaEdit.setText(respuestaEdit.getText() + "5");}
+    }
+
+    public void seis(View view) {
+        if(respuestaEdit.getText().length() > 0){num1 = Float.parseFloat(respuestaEdit.getText().toString());}
+        if(num1 == 0.0f ){respuestaEdit.setText("6");}else{respuestaEdit.setText(respuestaEdit.getText() + "6");}
+    }
+
+    public void uno(View view) {
+        if(respuestaEdit.getText().length() > 0){num1 = Float.parseFloat(respuestaEdit.getText().toString());}
+        if(num1 == 0.0f ){respuestaEdit.setText("1");}else{respuestaEdit.setText(respuestaEdit.getText() + "1");}
+    }
+
+    public void dos(View view) {
+        if(respuestaEdit.getText().length() > 0){num1 = Float.parseFloat(respuestaEdit.getText().toString());}
+        if(num1 == 0.0f ){respuestaEdit.setText("2");}else{respuestaEdit.setText(respuestaEdit.getText() + "2");}
+    }
+
+    public void tres(View view) {
+        if(respuestaEdit.getText().length() > 0){num1 = Float.parseFloat(respuestaEdit.getText().toString());}
+        if(num1 == 0 ){respuestaEdit.setText("3");}else{respuestaEdit.setText(respuestaEdit.getText() + "3");}
+    }
+
+    public void cero(View view) {
+        if(respuestaEdit.getText().length() > 0){num1 = Float.parseFloat(respuestaEdit.getText().toString());}
+        if(num1 == 0.0f ){respuestaEdit.setText("0");}else{respuestaEdit.setText(respuestaEdit.getText() + "0");}
     }
 
 }

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <EditText
+    <TextView
         android:id="@+id/respuesta"
         android:layout_width="292dp"
         android:layout_height="49dp"
@@ -39,9 +39,17 @@
             android:layout_height="match_parent" >
 
             <Button
+                android:id="@+id/button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="multiplicar"
+                android:text="X" />
+
+            <Button
                 android:id="@+id/igual"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:onClick="igual"
                 android:text="=" />
         </TableRow>
 
@@ -53,18 +61,21 @@
                 android:id="@+id/resta"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:onClick="resta"
                 android:text="-" />
 
             <Button
                 android:id="@+id/suma"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:onClick="suma"
                 android:text="+" />
 
             <Button
                 android:id="@+id/division"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:onClick="dividir"
                 android:text="÷" />
         </TableRow>
 
@@ -77,18 +88,21 @@
                 android:id="@+id/siete"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:onClick="siete"
                 android:text="7" />
 
             <Button
                 android:id="@+id/ocho"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:onClick="ocho"
                 android:text="8" />
 
             <Button
                 android:id="@+id/nueve"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:onClick="nueve"
                 android:text="9" />
         </TableRow>
 
@@ -100,18 +114,21 @@
                 android:id="@+id/cuatro"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:onClick="cuatro"
                 android:text="4" />
 
             <Button
                 android:id="@+id/cinco"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:onClick="cinco"
                 android:text="5" />
 
             <Button
                 android:id="@+id/seis"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:onClick="seis"
                 android:text="6" />
         </TableRow>
 
@@ -124,18 +141,21 @@
                 android:id="@+id/uno"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:onClick="uno"
                 android:text="1" />
 
             <Button
                 android:id="@+id/dos"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:onClick="dos"
                 android:text="2" />
 
             <Button
                 android:id="@+id/tres"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:onClick="tres"
                 android:text="3" />
         </TableRow>
 
@@ -148,18 +168,21 @@
                 android:id="@+id/cero"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:onClick="cero"
                 android:text="0" />
 
             <Button
                 android:id="@+id/punto"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:onClick="puntito"
                 android:text="." />
 
             <Button
                 android:id="@+id/cbtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:onClick="clear"
                 android:text="C" />
 
         </TableRow>
