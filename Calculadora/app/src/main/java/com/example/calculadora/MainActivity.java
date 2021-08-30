@@ -1,7 +1,8 @@
 package com.example.calculadora;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.content.Context;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.view.View;
@@ -28,7 +29,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         respuestaEdit = findViewById(R.id.respuesta);
-
     }
 
     public void dividir(View view){
