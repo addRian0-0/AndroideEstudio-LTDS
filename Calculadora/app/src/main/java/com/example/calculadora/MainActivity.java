@@ -76,14 +76,19 @@ public class MainActivity extends AppCompatActivity {
                 break;
 
             case "pot":
-                if(n.getNum2() <= 0){
+                if(n.getNum2() < 0){
                     Toast.makeText(this, "No se permiten potencias negativas", Toast.LENGTH_LONG).show();
                 }else{
-                    try{
-                        double resp = Math.pow(n.getNum1(), n.getNum2());
-                        respuestaEdit.setText(Double.toString(resp));
-                    }catch(Exception e ){
-                        Toast.makeText(this, "Ocurrio un error" + e.getMessage(), Toast.LENGTH_LONG).show();
+                    if(n.getNum2() == 0 && n.getNum1() == 0){
+                        respuestaEdit.setText("ERROR");
+                    }else{
+                        try{
+                            double resp = Math.pow(n.getNum1(), n.getNum2());
+                            respuestaEdit.setText(Double.toString(resp));
+                        }catch(Exception e ){
+                            respuestaEdit.setText("ERROR");
+                            Toast.makeText(this, "Ocurrio un error" + e.getMessage(), Toast.LENGTH_LONG).show();
+                        }
                     }
                 }
                 break;
@@ -112,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
                 respuestaEdit.setText(Double.toString(res));
             }catch (Exception e){
                 Toast.makeText(this, "Ocurrio un error..." + e.getMessage(), Toast.LENGTH_LONG).show();
-                respuestaEdit.setText("0");
+                respuestaEdit.setText("ERROR");
             }
         }
     }
@@ -155,53 +160,93 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void siete(View view){
-        if(respuestaEdit.getText().length() > 0){num1 = Float.parseFloat(respuestaEdit.getText().toString());}
-        if(num1 == 0.0f ){respuestaEdit.setText("7");}else{respuestaEdit.setText(respuestaEdit.getText() + "7");}
+        try{
+            if(respuestaEdit.getText().length() > 0){num1 = Float.parseFloat(respuestaEdit.getText().toString());}
+            if(num1 == 0.0f ){respuestaEdit.setText("7");}else{respuestaEdit.setText(respuestaEdit.getText() + "7");}
+        }catch (Exception e){
+            respuestaEdit.setText("7");
+        }
     }
 
     public void ocho(View view) {
-        if(respuestaEdit.getText().length() > 0){num1 = Float.parseFloat(respuestaEdit.getText().toString());}
-        if(num1 == 0.0f ){respuestaEdit.setText("8");}else{respuestaEdit.setText(respuestaEdit.getText() + "8");}
+        try{
+            if(respuestaEdit.getText().length() > 0){num1 = Float.parseFloat(respuestaEdit.getText().toString());}
+            if(num1 == 0.0f ){respuestaEdit.setText("8");}else{respuestaEdit.setText(respuestaEdit.getText() + "8");}
+        }catch(Exception e){
+            respuestaEdit.setText("8");
+        }
     }
 
     public void nueve(View view) {
-        if(respuestaEdit.getText().length() > 0){num1 = Float.parseFloat(respuestaEdit.getText().toString());}
-        if(num1 == 0.0f ){respuestaEdit.setText("9");}else{respuestaEdit.setText(respuestaEdit.getText() + "9");}
+        try{
+            if(respuestaEdit.getText().length() > 0){num1 = Float.parseFloat(respuestaEdit.getText().toString());}
+            if(num1 == 0.0f ){respuestaEdit.setText("9");}else{respuestaEdit.setText(respuestaEdit.getText() + "9");}
+        }catch(Exception e){
+            respuestaEdit.setText("9");
+        }
     }
 
     public void cuatro(View view) {
-        if(respuestaEdit.getText().length() > 0){num1 = Float.parseFloat(respuestaEdit.getText().toString());}
-        if(num1 == 0.0f ){respuestaEdit.setText("4");}else{respuestaEdit.setText(respuestaEdit.getText() + "4");}
+        try{
+            if(respuestaEdit.getText().length() > 0){num1 = Float.parseFloat(respuestaEdit.getText().toString());}
+            if(num1 == 0.0f ){respuestaEdit.setText("4");}else{respuestaEdit.setText(respuestaEdit.getText() + "4");}
+        }catch(Exception e){
+            respuestaEdit.setText("4");
+        }
     }
 
     public void cinco(View view) {
-        if(respuestaEdit.getText().length() > 0){num1 = Float.parseFloat(respuestaEdit.getText().toString());}
-        if(num1 == 0.0f ){respuestaEdit.setText("5");}else{respuestaEdit.setText(respuestaEdit.getText() + "5");}
+        try{
+            if(respuestaEdit.getText().length() > 0){num1 = Float.parseFloat(respuestaEdit.getText().toString());}
+            if(num1 == 0.0f ){respuestaEdit.setText("5");}else{respuestaEdit.setText(respuestaEdit.getText() + "5");}
+        }catch (Exception e){
+            respuestaEdit.setText("5");
+        }
     }
 
     public void seis(View view) {
-        if(respuestaEdit.getText().length() > 0){num1 = Float.parseFloat(respuestaEdit.getText().toString());}
-        if(num1 == 0.0f ){respuestaEdit.setText("6");}else{respuestaEdit.setText(respuestaEdit.getText() + "6");}
+        try{
+            if(respuestaEdit.getText().length() > 0){num1 = Float.parseFloat(respuestaEdit.getText().toString());}
+            if(num1 == 0.0f ){respuestaEdit.setText("6");}else{respuestaEdit.setText(respuestaEdit.getText() + "6");}
+        }catch(Exception e){
+            respuestaEdit.setText("6");
+        }
     }
 
     public void uno(View view) {
-        if(respuestaEdit.getText().length() > 0){num1 = Float.parseFloat(respuestaEdit.getText().toString());}
-        if(num1 == 0.0f ){respuestaEdit.setText("1");}else{respuestaEdit.setText(respuestaEdit.getText() + "1");}
+        try{
+            if(respuestaEdit.getText().length() > 0){num1 = Float.parseFloat(respuestaEdit.getText().toString());}
+            if(num1 == 0.0f ){respuestaEdit.setText("1");}else{respuestaEdit.setText(respuestaEdit.getText() + "1");}
+        }catch(Exception e){
+            respuestaEdit.setText("1");
+        }
     }
 
     public void dos(View view) {
-        if(respuestaEdit.getText().length() > 0){num1 = Float.parseFloat(respuestaEdit.getText().toString());}
-        if(num1 == 0.0f ){respuestaEdit.setText("2");}else{respuestaEdit.setText(respuestaEdit.getText() + "2");}
+        try{
+            if(respuestaEdit.getText().length() > 0){num1 = Float.parseFloat(respuestaEdit.getText().toString());}
+            if(num1 == 0.0f ){respuestaEdit.setText("2");}else{respuestaEdit.setText(respuestaEdit.getText() + "2");}
+        }catch(Exception e){
+            respuestaEdit.setText("2");
+        }
     }
 
     public void tres(View view) {
-        if(respuestaEdit.getText().length() > 0){num1 = Float.parseFloat(respuestaEdit.getText().toString());}
-        if(num1 == 0 ){respuestaEdit.setText("3");}else{respuestaEdit.setText(respuestaEdit.getText() + "3");}
+        try{
+            if(respuestaEdit.getText().length() > 0){num1 = Float.parseFloat(respuestaEdit.getText().toString());}
+            if(num1 == 0 ){respuestaEdit.setText("3");}else{respuestaEdit.setText(respuestaEdit.getText() + "3");}
+        }catch(Exception e){
+            respuestaEdit.setText("3");
+        }
     }
 
     public void cero(View view) {
-        if(respuestaEdit.getText().length() > 0){num1 = Float.parseFloat(respuestaEdit.getText().toString());}
-        if(num1 == 0.0f ){respuestaEdit.setText("0");}else{respuestaEdit.setText(respuestaEdit.getText() + "0");}
+        try{
+            if(respuestaEdit.getText().length() > 0){num1 = Float.parseFloat(respuestaEdit.getText().toString());}
+            if(num1 == 0.0f ){respuestaEdit.setText("0");}else{respuestaEdit.setText(respuestaEdit.getText() + "0");}
+        }catch(Exception e){
+            respuestaEdit.setText("0");
+        }
     }
 
 }
