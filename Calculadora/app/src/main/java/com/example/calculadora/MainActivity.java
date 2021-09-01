@@ -1,26 +1,35 @@
 package com.example.calculadora;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
     Numeros n = new Numeros();
+    ArrayList<Operaciones> listaOperacion = new ArrayList<>();
 
     //Respuesta
     private TextView respuestaEdit;
     private float num1 = 0;
     private float num2 = 0;
     String operacion = "";
+    String texto = "";
+
+    public static final String EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,121 +38,201 @@ public class MainActivity extends AppCompatActivity {
 
         respuestaEdit = findViewById(R.id.respuesta);
 
+        try{
+
+            BufferedReader fin = new BufferedReader(new InputStreamReader(openFileInput("historial.txt")));
+            texto  = fin.readLine();
+            fin.close();
+
+        }catch(Exception e){
+            System.out.println("ERROR LECTURA" + e.getMessage());
+        }
+
+    }
+
+    public void verHistorial(View view){
+
+        try{
+
+            BufferedReader fin = new BufferedReader(new InputStreamReader(openFileInput("historial.txt")));
+            texto  = fin.readLine();
+            Log.i("ddd",texto);
+
+            Intent intent = new Intent(this, Historial.class);
+            String message = respuestaEdit.getText().toString();
+            intent.putExtra(EXTRA_MESSAGE, texto);
+            startActivity(intent);
+
+            fin.close();
+
+        }catch(Exception e){
+            System.out.println("ERROR LECTURA" + e.getMessage());
+        }
+
     }
 
     public void dividir(View view){
-        n.setNum1(Float.parseFloat(respuestaEdit.getText().toString()));
-        operacion = "/";
-        respuestaEdit.setText("0");
+        try{
+            n.setNum1(Float.parseFloat(respuestaEdit.getText().toString()));
+            operacion = "/";
+            respuestaEdit.setText("0");
+        }catch (Exception e){
+            n.setNum1(0);
+            respuestaEdit.setText("0");
+        }
     }
 
     public void igual(View view){
-        float res;
-        n.setNum2(Float.parseFloat(respuestaEdit.getText().toString()));
-        switch (operacion){
+        try{
+            float res = 0.0f;
+            n.setNum2(Float.parseFloat(respuestaEdit.getText().toString()));
+            switch (operacion){
 
-            case "+":
-                res = n.getNum1() + n.getNum2();
-                respuestaEdit.setText(Float.toString(res));
-                break;
-
-            case "/":
-                if(n.getNum2() == 0 || n.getNum1() == 0){
-                    Toast.makeText(this, "No se puede dividir entre 0", Toast.LENGTH_LONG).show();
-                }else{
-                    res = n.getNum1() / n.getNum2();
+                case "+":
+                    res = n.getNum1() + n.getNum2();
                     respuestaEdit.setText(Float.toString(res));
-                }
-                break;
+                    break;
 
-            case "-":
-                res = n.getNum1() - n.getNum2();
-                respuestaEdit.setText(Float.toString(res));
-                break;
-
-            case "*":
-                res = n.getNum1() * n.getNum2();
-                respuestaEdit.setText(Float.toString(res));
-                break;
-
-            case "%":
-                if(n.getNum2() == 0){
-                    Toast.makeText(this, "No se puede sacar modulo de cero", Toast.LENGTH_LONG).show();
-                }else{
-                    res = n.getNum1() % n.getNum2();
-                    respuestaEdit.setText(Float.toString(res));
-                }
-                break;
-
-            case "pot":
-                if(n.getNum2() < 0){
-                    Toast.makeText(this, "No se permiten potencias negativas", Toast.LENGTH_LONG).show();
-                }else{
-                    if(n.getNum2() == 0 && n.getNum1() == 0){
-                        respuestaEdit.setText("ERROR");
+                case "/":
+                    if(n.getNum2() == 0 || n.getNum1() == 0){
+                        Toast.makeText(this, "No se puede dividir entre 0", Toast.LENGTH_LONG).show();
                     }else{
-                        try{
-                            double resp = Math.pow(n.getNum1(), n.getNum2());
-                            respuestaEdit.setText(Double.toString(resp));
-                        }catch(Exception e ){
+                        res = n.getNum1() / n.getNum2();
+                        respuestaEdit.setText("ERROR");
+                    }
+                    break;
+
+                case "-":
+                    res = n.getNum1() - n.getNum2();
+                    respuestaEdit.setText(Float.toString(res));
+                    break;
+
+                case "*":
+                    res = n.getNum1() * n.getNum2();
+                    respuestaEdit.setText(Float.toString(res));
+                    break;
+
+                case "%":
+                    if(n.getNum2() == 0){
+                        Toast.makeText(this, "No se puede sacar modulo de cero", Toast.LENGTH_LONG).show();
+                    }else{
+                        res = n.getNum1() % n.getNum2();
+                        respuestaEdit.setText(Float.toString(res));
+                    }
+                    break;
+
+                case "pot":
+                    if(n.getNum2() < 0){
+                        Toast.makeText(this, "No se permiten potencias negativas", Toast.LENGTH_LONG).show();
+                    }else{
+                        if(n.getNum2() == 0 && n.getNum1() == 0){
                             respuestaEdit.setText("ERROR");
-                            Toast.makeText(this, "Ocurrio un error" + e.getMessage(), Toast.LENGTH_LONG).show();
+                        }else{
+                            try{
+                                res = (float) Math.pow(n.getNum1(), n.getNum2());
+                                respuestaEdit.setText(Float.toString(res));
+                            }catch(Exception e ){
+                                respuestaEdit.setText("ERROR");
+                                Toast.makeText(this, "Ocurrio un error" + e.getMessage(), Toast.LENGTH_LONG).show();
+                            }
                         }
                     }
-                }
-                break;
+                    break;
 
+            }
+
+            try{
+
+                OutputStreamWriter escribir = new OutputStreamWriter(openFileOutput("historial.txt", Context.MODE_PRIVATE));
+                texto = texto + Float.toString(n.getNum1()) + " " + operacion + " " + Float.toString(n.getNum2()) + " = " + Float.toString(res) + "|\n";
+                escribir.write(texto);
+                escribir.close();
+
+            }catch(Exception e){
+                System.out.println("ERROR sout "  + e.getMessage());
+            }
+
+        }catch(Exception e){
+            respuestaEdit.setText("ERROR");
         }
     }
 
     public void borrar(View view){
-        String ops = respuestaEdit.getText().toString();
-        ops = ops.substring(0, ops.length()-1);
-        respuestaEdit.setText(ops);
+        try{
+            String ops = respuestaEdit.getText().toString();
+            ops = ops.substring(0, ops.length()-1);
+            respuestaEdit.setText(ops);
+        }catch(Exception e){
+            respuestaEdit.setText("0");
+        }
     }
 
     public void potencia(View view){
-        n.setNum1(Float.parseFloat(respuestaEdit.getText().toString()));
-        operacion = "pot";
-        respuestaEdit.setText("0");
+        try{
+            n.setNum1(Float.parseFloat(respuestaEdit.getText().toString()));
+            operacion = "pot";
+            respuestaEdit.setText("0");
+        }catch(Exception e){
+            respuestaEdit.setText("0");
+        }
     }
 
     public void raiz(View view){
-        if(Float.parseFloat(respuestaEdit.getText().toString()) <= 0){
-            Toast.makeText(this, "Solo se puede sacar raiz cuadrarda a numero mayores a 0", Toast.LENGTH_LONG).show();
-        }else{
-            try{
-                double res = Math.sqrt(Float.parseFloat(respuestaEdit.getText().toString()));
-                respuestaEdit.setText(Double.toString(res));
-            }catch (Exception e){
-                Toast.makeText(this, "Ocurrio un error..." + e.getMessage(), Toast.LENGTH_LONG).show();
-                respuestaEdit.setText("ERROR");
+        try{
+            if(Float.parseFloat(respuestaEdit.getText().toString()) <= 0){
+                Toast.makeText(this, "Solo se puede sacar raiz cuadrarda a numero mayores a 0", Toast.LENGTH_LONG).show();
+            }else{
+                try{
+                    double res = Math.sqrt(Float.parseFloat(respuestaEdit.getText().toString()));
+                    respuestaEdit.setText(Double.toString(res));
+                }catch (Exception e){
+                    Toast.makeText(this, "Ocurrio un error..." + e.getMessage(), Toast.LENGTH_LONG).show();
+                    respuestaEdit.setText("ERROR");
+                }
             }
+        }catch(Exception e){
+            respuestaEdit.setText("0");
         }
     }
 
     public void modulo(View view){
-        n.setNum1(Float.parseFloat(respuestaEdit.getText().toString()));
-        operacion = "%";
-        respuestaEdit.setText("0");
+        try{
+            n.setNum1(Float.parseFloat(respuestaEdit.getText().toString()));
+            operacion = "%";
+            respuestaEdit.setText("0");
+        }catch(Exception e){
+            respuestaEdit.setText("0");
+        }
     }
 
     public void multiplicar(View view){
-        n.setNum1(Float.parseFloat(respuestaEdit.getText().toString()));
-        operacion = "*";
-        respuestaEdit.setText("0");
+        try{
+            n.setNum1(Float.parseFloat(respuestaEdit.getText().toString()));
+            operacion = "*";
+            respuestaEdit.setText("0");
+        }catch(Exception e){
+            respuestaEdit.setText("0");
+        }
     }
 
     public void suma(View view){
-        n.setNum1(Float.parseFloat(respuestaEdit.getText().toString()));
-        operacion = "+";
-        respuestaEdit.setText("0");
+        try{
+            n.setNum1(Float.parseFloat(respuestaEdit.getText().toString()));
+            operacion = "+";
+            respuestaEdit.setText("0");
+        }catch(Exception e){
+            respuestaEdit.setText("0");
+        }
     }
 
     public void resta(View view){
-        n.setNum1(Float.parseFloat(respuestaEdit.getText().toString()));
-        operacion = "-";
-        respuestaEdit.setText("0");
+        try{
+            n.setNum1(Float.parseFloat(respuestaEdit.getText().toString()));
+            operacion = "-";
+            respuestaEdit.setText("0");
+        }catch(Exception e){
+            respuestaEdit.setText("0");
+        }
     }
 
     public void puntito(View view){
