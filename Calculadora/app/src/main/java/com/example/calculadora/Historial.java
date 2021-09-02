@@ -20,9 +20,9 @@ public class Historial extends AppCompatActivity {
         String Total = "";
         for(int i = 0; i >= message.length()-1; i++){
             if(message.charAt(i) == '|'){
-                Total += "\n";
+                Total += String.format("\n");
             }else{
-                Total += message.charAt(i);
+                Total += String.format(message.charAt(i) + "");
             }
         }
         his.setText(message);

@@ -23,9 +23,12 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<Operaciones> listaOperacion = new ArrayList<>();
 
     //Respuesta
+    //Visualizar las respuetas
     private TextView respuestaEdit;
+    //Variables para realizar la operacio
     private float num1 = 0;
     private float num2 = 0;
+    //Oeracion guardar el tipo de operacion (+, -, *, / )
     String operacion = "";
     String texto = "";
 
@@ -71,6 +74,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    //Asigna el tipo de operacion ("/") a la variable operacion
     public void dividir(View view){
         try{
             n.setNum1(Float.parseFloat(respuestaEdit.getText().toString()));
@@ -85,7 +89,9 @@ public class MainActivity extends AppCompatActivity {
     public void igual(View view){
         try{
             float res = 0.0f;
+            //Toma el segundo numero a operar del textView
             n.setNum2(Float.parseFloat(respuestaEdit.getText().toString()));
+            //Usa un switch para ver que tipo de operacion es y imprime el resultado en TextView
             switch (operacion){
 
                 case "+":
@@ -157,6 +163,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    //Borra el ultimo caracter escrito
     public void borrar(View view){
         try{
             String ops = respuestaEdit.getText().toString();
@@ -167,6 +174,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    //Asigna el tipo de operacion ("pot") a la variable operacion
     public void potencia(View view){
         try{
             n.setNum1(Float.parseFloat(respuestaEdit.getText().toString()));
@@ -239,6 +247,7 @@ public class MainActivity extends AppCompatActivity {
         respuestaEdit.setText(respuestaEdit.getText() + ".");
     }
 
+    //Reinicia las variables
     public void clear(View view){
         respuestaEdit.setText("0");
         num1 = 0.0f;
@@ -248,6 +257,7 @@ public class MainActivity extends AppCompatActivity {
         operacion = "";
     }
 
+    //Para escribir los numeros
     public void siete(View view){
         try{
             if(respuestaEdit.getText().length() > 0){num1 = Float.parseFloat(respuestaEdit.getText().toString());}
